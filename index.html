@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For You 🤍</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: #f3e8d8;
+        text-align: center;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* decoration container covers full viewport */
+      #decorations {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      /* individual floating elements (flowers/chocolates) */
+      .floater {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.8;
+        animation: floatUp 12s linear infinite;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-10vh) rotate(360deg);
+        }
+      }
+
+      /* responsive adjustments for smaller screens */
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2rem;
+          margin-top: 40px;
+        }
+        p {
+          padding: 0 15px;
+          font-size: 1rem;
+        }
+        .card {
+          width: 90%;
+          padding: 15px;
+        }
+        button {
+          padding: 10px 20px;
+          font-size: 0.9rem;
+        }
+        /* reduce decoration density on phones */
+        .floater {
+          width: 30px;
+          height: 30px;
+          opacity: 0.6;
+        }
+      }
+      p {
+        max-width: 600px;
+        margin: 20px auto;
+        color: #5d4037;
+        font-size: 1.1rem;
+      }
+
+      .card {
+        background: #fff8f0;
+        padding: 20px;
+        margin: 20px auto;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      button {
+        margin-top: 30px;
+        padding: 12px 28px;
+        border: none;
+        border-radius: 25px;
+        background-color: #8d6e63;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #6d4c41;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="decorations"></div>
+
+    <h1>You’re my favorite day, every day 🤍</h1>
+
+    <p>
+      Every moment with you feels like a little gift—no special day required.
+      You make the ordinary feel magical.
+    </p>
+
+    <div class="card" onclick="reveal(this)">Click to reveal something 🤍</div>
+
+    <div class="card" onclick="reveal(this)">Click again…</div>
+
+    <div class="card" onclick="reveal(this)">One more</div>
+
+    <button onclick="goNext()">Something else for you →</button>
+
+    <script>
+      const messages = [
+        "You make ordinary days feel special.",
+        "You’re the calm in my chaos.",
+        "I genuinely feel lucky to have you.",
+        "You inspire me more than you know.",
+      ];
+
+      let index = 0;
+
+      function reveal(card) {
+        if (index < messages.length) {
+          card.innerText = messages[index];
+          index++;
+        }
+      }
+
+      function goNext() {
+        window.location.href = "another.html";
+      }
+
+      // ---------- background decoration logic ----------
+      const decoImages = [
+        "https://img.icons8.com/color/96/000000/flower.png",
+        "https://img.icons8.com/color/96/000000/chocolate-bar.png",
+        "https://img.icons8.com/color/96/000000/rose.png",
+        "https://img.icons8.com/color/96/000000/heart.png",
+      ];
+
+      function spawnFloater() {
+        const container = document.getElementById("decorations");
+        const el = document.createElement("div");
+        el.className = "floater";
+        const size = 30 + Math.random() * 50;
+        el.style.width = size + "px";
+        el.style.height = size + "px";
+        el.style.left = Math.random() * 100 + "%";
+        el.style.backgroundImage = `url(${decoImages[Math.floor(Math.random() * decoImages.length)]})`;
+        container.appendChild(el);
+        // remove after animation duration
+        setTimeout(() => container.removeChild(el), 13000);
+      }
+
+      // periodically create new floaters
+      setInterval(spawnFloater, 800);
+    </script>
+  </body>
+</html>

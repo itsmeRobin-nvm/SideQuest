@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YOU 🤍</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        background-color: #f3e8d8;
+        font-family: "Poppins", sans-serif;
+        overflow: hidden;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 40px;
+        font-family: "Playfair Display", serif;
+        color: #6d4c41;
+      }
+
+      .slider {
+        position: relative;
+        width: 100%;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .card {
+        position: absolute;
+        width: 320px;
+        border-radius: 20px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        opacity: 0;
+        transform: translateX(100vw) scale(0.9);
+      }
+
+      .card img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+
+      .image-wrapper {
+        position: relative;
+      }
+
+      .heart {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #e57373;
+        font-size: 22px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 8px;
+        border-radius: 50%;
+      }
+
+      .card p {
+        margin-top: 12px;
+        color: #5d4037;
+        font-size: 1rem;
+      }
+
+      /* Soft matching card colors */
+      .card:nth-child(1) {
+        background-color: #fff8f0;
+      }
+      .card:nth-child(2) {
+        background-color: #fce4ec;
+      }
+      .card:nth-child(3) {
+        background-color: #f3e5f5;
+      }
+      .card:nth-child(4) {
+        background-color: #ede7f6;
+      }
+      .card:nth-child(5) {
+        background-color: #e8f5e9;
+      }
+
+      .active {
+        animation: slideStop 6s ease-in-out forwards;
+      }
+
+      @keyframes slideStop {
+        0% {
+          transform: translateX(100vw) scale(0.9);
+          opacity: 1;
+        }
+        20% {
+          transform: translateX(0) scale(1);
+          opacity: 1;
+        }
+        70% {
+          transform: translateX(0) scale(1.08);
+          opacity: 1;
+        }
+        85% {
+          transform: translateX(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-120vw) scale(0.9);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>YOU'RE AWESOME 🤍</h1>
+
+    <div class="slider">
+      <div class="card">
+        <div class="image-wrapper">
+          <img src="image1.png" alt="Photo 1" />
+          <div class="heart"><i class="fa-solid fa-heart"></i></div>
+        </div>
+        <p>Your smile here made my whole day.</p>
+      </div>
+
+      <div class="card">
+        <div class="image-wrapper">
+          <img src="image2.png" alt="Photo 2" />
+          <div class="heart"><i class="fa-solid fa-heart"></i></div>
+        </div>
+        <p>This moment felt like peace.</p>
+      </div>
+
+      <div class="card">
+        <div class="image-wrapper">
+          <img src="image3.png" alt="Photo 3" />
+          <div class="heart"><i class="fa-solid fa-heart"></i></div>
+        </div>
+        <p>I could replay this memory forever.</p>
+      </div>
+
+      <div class="card">
+        <div class="image-wrapper">
+          <img src="image4.png" alt="Photo 4" />
+          <div class="heart"><i class="fa-solid fa-heart"></i></div>
+        </div>
+        <p>You looked unreal here.</p>
+      </div>
+
+      <div class="card">
+        <div class="image-wrapper">
+          <img src="image5.png" alt="Photo 5" />
+          <div class="heart"><i class="fa-solid fa-heart"></i></div>
+        </div>
+        <p>And this… this is my favorite 🤍</p>
+      </div>
+    </div>
+
+    <audio id="bg-music" autoplay muted loop>
+      <source src="audio.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script>
+      const cards = document.querySelectorAll(".card");
+      const audio = document.getElementById("bg-music");
+      let index = 0;
+
+      // Auto-unmute and fade in after 1 second
+      setTimeout(() => {
+        audio.muted = false;
+        // Fade in effect
+        let volume = 0;
+        const fadeIn = setInterval(() => {
+          if (volume < 1) {
+            volume += 0.05;
+            audio.volume = Math.min(volume, 1);
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100);
+      }, 1000);
+
+      function showNextCard() {
+        cards.forEach((card) => card.classList.remove("active"));
+        cards[index].classList.add("active");
+        index = (index + 1) % cards.length;
+      }
+
+      showNextCard();
+      setInterval(showNextCard, 6000);
+    </script>
+  </body>
+</html>
