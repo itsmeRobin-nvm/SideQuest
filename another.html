@@ -63,13 +63,15 @@
 
       .heart {
         position: absolute;
-        top: 5px;
-        right: 5px;
+        /* nudge further into the corner (slightly outside) */
+        top: -6px;
+        right: -4px;
         color: #e57373;
         font-size: 22px;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 5px;
-        border-radius: 50%;
+        /* remove the white circular background and padding */
+        background: none;
+        padding: 0;
+        border-radius: 0;
       }
 
       .card p {
